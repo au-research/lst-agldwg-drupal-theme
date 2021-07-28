@@ -1,0 +1,87 @@
+<?php
+
+/*
+For future reference:
+A vocabulary node has these fields:
+nid
+uuid
+vid
+langcode
+type
+revision_timestamp
+revision_uid
+revision_log
+status
+uid
+title
+created
+changed
+promote
+sticky
+default_langcode
+revision_default
+revision_translation_affected
+path
+menu_link
+body
+field_agldwg_identifier
+field_contact_person
+field_creator
+field_date_accepted
+field_ontology_file
+field_publisher
+field_registry_status
+field_reviewer
+field_workflow
+ */
+
+/* In twig template:
+ {{ node.getType }} -> vocabulary
+ {{ node.type.entity.label }} -> Vocabulary
+ {{ node.field_agldwg_identifier.value }} -> /dev/xyz
+   = $variable['node']->field_agldwg_identifier->value;
+ {{ node.field_registry_status.entity.name.value }} -> submitted
+   = $variable['node']->field_registry_status->entity->name->value;
+ {{ node.vid.value }} -> 599
+*/
+
+/**
+ * Implements hook_preprocess_HOOK() for node display.
+ */
+function agldwg_preprocess_node(&$variables) {
+    // \Drupal::logger('agldwg theme')->notice('in preprocess_node');
+
+    /* Here's some sample code to show how to access field values and
+       how to set a variable that can be used in the twig template.
+    if ($variables['node']->getType() === 'vocabulary') {
+        $variables['register_item_status'] =
+            $variables['node']->field_registry_status->entity->name->value;
+    }
+    */
+
+    /* Three possibilities (so far) for the identifier value:
+       1. No value. This can happen for organisations. We display
+          some static text indicating that no value has been assigned.
+       2. Legacy value, beginning with "http...". We display the
+          legacy-value as-is.
+       3. "Normal" value, beginning with "/...". We prepend a suitable
+          value to make it a complete IRI.
+     */
+    $id = $variables['node']->field_agldwg_identifier->value;
+    //\Drupal::logger('agldwg theme')->notice('in preprocess_node, id = ' .
+    //  var_export($id, TRUE));
+
+    if ($id === NULL) {
+        // No value specified.
+        $variables['node_register_item_identifier'] = 'No identifier assigned';
+    } else if (str_starts_with($id, 'http')) {
+        // Legacy; the identifier is a URL, so use it as-is.
+        $variables['node_register_item_identifier'] = $id;
+    } else {
+        // A "normal" value.
+        $variables['node_register_item_identifier'] =
+            'https://linked.data.gov.au' .
+            $variables['node']->field_agldwg_identifier->value;
+    }
+
+}
