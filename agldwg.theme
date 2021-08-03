@@ -67,7 +67,11 @@ function agldwg_preprocess_node(&$variables) {
        3. "Normal" value, beginning with "/...". We prepend a suitable
           value to make it a complete IRI.
      */
-    $id = $variables['node']->field_agldwg_identifier->value;
+    $id = NULL;
+    if (isset($variables['node']->field_agldwg_identifier) &&
+        isset($variables['node']->field_agldwg_identifier->value)) {
+        $id = $variables['node']->field_agldwg_identifier->value;
+    }
     //\Drupal::logger('agldwg theme')->notice('in preprocess_node, id = ' .
     //  var_export($id, TRUE));
 
