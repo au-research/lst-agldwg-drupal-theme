@@ -88,15 +88,3 @@ function agldwg_preprocess_node(&$variables) {
             $variables['node']->field_agldwg_identifier->value;
     }
 }
-
-/**
- * Implements hook_form_FORM_ID_alter to support prefilling subject
- * on the contact form when a query parameter 'subject' is supplied.
- */
-function agldwg_form_contact_message_feedback_form_alter(&$form, $form_state,
-                                                         $form_id) {
-    if (!empty($_GET['subject'])) {
-        $form['subject']['widget'][0]['value']['#default_value'] =
-            $_GET['subject'];
-    }
-}
