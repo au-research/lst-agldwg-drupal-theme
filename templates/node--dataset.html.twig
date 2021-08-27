@@ -4,6 +4,7 @@
  * Bartik's theme implementation to display a node.
  * (Original file: web/core/themes/bartik/templates/node.html.twig)
  * Customized for AGLDWG theme:
+ * - Hide author_picture (thumbnail image of the user).
  * - Display the register item type.
  * - Display patched identifier value. Relies on agldwg.theme's
  *   agldwg_preprocess_node() hook function to set a value for the
@@ -97,7 +98,6 @@
     {{ title_suffix }}
     {% if display_submitted %}
       <div class="node__meta">
-        {{ author_picture }}
         <span{{ author_attributes }}>
           {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
         </span>
