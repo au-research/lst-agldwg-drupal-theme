@@ -1,6 +1,6 @@
 {
-    "name": "ardc/x1-custom-theme-agldwg",
-    "description": "X1 AGLDWG Custom Theme",
+    "name": "ardc/lst-agldwg-theme",
+    "description": "LinkStitcher AGLDWG theme",
     "type": "drupal-custom-theme",
     "license": "Apache-2.0",
     "authors": [
