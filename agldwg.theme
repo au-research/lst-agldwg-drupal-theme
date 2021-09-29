@@ -88,3 +88,13 @@ function agldwg_preprocess_node(&$variables) {
             $variables['node']->field_agldwg_identifier->value;
     }
 }
+
+/**
+ * Implements hook_preprocess_HOOK() for user display.
+ */
+function agldwg_preprocess_user(&$variables) {
+    // Set Boolean variable indicating whether the current user
+    // has the permission to see the email addresses of users.
+    $variables['current_user_may_view_user_email_addresses'] =
+        \Drupal::currentUser()->hasPermission('view user email addresses');
+}
