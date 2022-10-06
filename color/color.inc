@@ -1,6 +1,7 @@
 <?php
 
-include (drupal_get_path('theme', 'bartik') . '/color/color.inc'); 
+include (\Drupal\Core\Extension\ExtensionPathResolver::getPath(
+    'theme', 'bartik') . '/color/color.inc');
 
 $info['schemes']['default'] = [
       'title' => t('AGLDWG (default)'),
@@ -26,4 +27,3 @@ $info['copy'] = [
   // Put the logo path into JavaScript for the live preview.
 $info['#attached']['drupalSettings']['color']['logo'] =
     theme_get_setting('logo.url', 'agldwg');
-
